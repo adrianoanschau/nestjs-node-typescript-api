@@ -6,15 +6,15 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export class Message {
+export interface Message {
     id: number;
     description: string;
 }
 
-export abstract class IQuery {
-    abstract messages(): Message[] | Promise<Message[]>;
+export interface IQuery {
+    messages(): Message[] | Promise<Message[]>;
 }
 
-export abstract class IMutation {
-    abstract createMessage(description: string): Message | Promise<Message>;
+export interface IMutation {
+    createMessage(description: string): Message | Promise<Message>;
 }
