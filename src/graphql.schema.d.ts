@@ -14,6 +14,8 @@ export interface CreateUser {
 
 export interface AccessToken {
     access_token: string;
+    refresh_token: string;
+    expires_in: number;
 }
 
 export interface IQuery {
@@ -24,6 +26,7 @@ export interface IQuery {
 
 export interface IMutation {
     login(email: string): AccessToken | Promise<AccessToken>;
+    refreshToken(): AccessToken | Promise<AccessToken>;
     register(data: CreateUser): User | Promise<User>;
 }
 

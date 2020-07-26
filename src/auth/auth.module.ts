@@ -7,22 +7,37 @@ import { LocalStrategy } from "./strategies/local.strategy";
 import { PrismaModule } from "../prisma/prisma.module";
 import { JwtModule } from "@nestjs/jwt";
 import { JwtStrategy } from "./strategies/jwt.strategy";
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { JwtRefreshStrategy } from "./strategies/jwt-refresh.strategy";
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
     PrismaModule,
-    JwtModule.register({
-      secret: 'secret',
-      signOptions: { expiresIn: '60s' },
-    }),
+    // JwtModule.register({
+    //   secret: 'secret',
+    //   signOptions: { expiresIn: '60s' },
+    // }),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory(configService: ConfigService) {
+        return {
+          secret: configService.get('JWT_SECRET'),
+          signOptions: {
+            expiresIn: configService.get('JWT_EXPIRATION_TIME'),
+          }
+        };
+      }
+    })
   ],
   providers: [
     AuthResolver,
     AuthService,
     LocalStrategy,
     JwtStrategy,
+    JwtRefreshStrategy,
   ],
   exports: [
     AuthService,

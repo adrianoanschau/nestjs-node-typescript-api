@@ -5,6 +5,7 @@ import { User } from "../users/models/user.model";
 import { CurrentUser } from "./decorators/current-user.decorator";
 import { UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "./guards/jwt-auth.guard";
+import { JwtRefreshGuard } from "./guards/jwt-refresh.guard";
 
 @Resolver('Auth')
 export class AuthResolver {
@@ -23,6 +24,15 @@ export class AuthResolver {
   @Mutation()
   async login(@Args('email') email: string) {
     const user = await this.usersService.findByEmail(email);
+    return this.authService.login(user);
+  }
+
+  @Mutation()
+  @UseGuards(JwtRefreshGuard)
+  async refreshToken(
+    @CurrentUser() refreshUser: User
+  ) {
+    const user = await this.usersService.findById(refreshUser.id);
     return this.authService.login(user);
   }
 
