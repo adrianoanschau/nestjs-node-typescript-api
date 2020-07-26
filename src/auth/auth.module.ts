@@ -9,16 +9,13 @@ import { JwtModule } from "@nestjs/jwt";
 import { JwtStrategy } from "./strategies/jwt.strategy";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtRefreshStrategy } from "./strategies/jwt-refresh.strategy";
+import { TokenService } from './token.service';
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
     PrismaModule,
-    // JwtModule.register({
-    //   secret: 'secret',
-    //   signOptions: { expiresIn: '60s' },
-    // }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -38,6 +35,7 @@ import { JwtRefreshStrategy } from "./strategies/jwt-refresh.strategy";
     LocalStrategy,
     JwtStrategy,
     JwtRefreshStrategy,
+    TokenService,
   ],
   exports: [
     AuthService,

@@ -4,6 +4,12 @@ type AccessToken {
     expires_in: Int!
 }
 
+type RefreshToken {
+    id: ID!
+    token: String!
+    user: User!
+}
+
 extend type Query {
     me: User!
 }
@@ -11,4 +17,5 @@ extend type Query {
 extend type Mutation {
     login(email: String!): AccessToken
     refreshToken: AccessToken
+    revokeToken: Boolean
 }

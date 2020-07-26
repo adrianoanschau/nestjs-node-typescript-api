@@ -18,6 +18,12 @@ export interface AccessToken {
     expires_in: number;
 }
 
+export interface RefreshToken {
+    id: string;
+    token: string;
+    user: User;
+}
+
 export interface IQuery {
     me(): User | Promise<User>;
     user(id: string): User | Promise<User>;
@@ -27,6 +33,7 @@ export interface IQuery {
 export interface IMutation {
     login(email: string): AccessToken | Promise<AccessToken>;
     refreshToken(): AccessToken | Promise<AccessToken>;
+    revokeToken(): boolean | Promise<boolean>;
     register(data: CreateUser): User | Promise<User>;
 }
 
