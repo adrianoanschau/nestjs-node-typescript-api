@@ -1,0 +1,11 @@
+type AccessToken {
+    access_token: String!
+}
+
+extend type Query {
+    me: User!
+}
+
+extend type Mutation {
+    login(email: String!): AccessToken
+}
