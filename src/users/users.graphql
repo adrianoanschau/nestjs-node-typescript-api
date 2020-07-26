@@ -14,11 +14,12 @@ input CreateUser {
 }
 
 extend type Query {
+    user(id: String!): User
     users: [User]!
 }
 
 extend type Mutation {
-    createUser(data: CreateUser!): User!
+    register(data: CreateUser!): User!
 }
 
 extend type Subscription {
