@@ -12,12 +12,19 @@ export interface CreateUser {
     password?: string;
 }
 
+export interface AccessToken {
+    access_token: string;
+}
+
 export interface IQuery {
+    me(): User | Promise<User>;
+    user(id: string): User | Promise<User>;
     users(): User[] | Promise<User[]>;
 }
 
 export interface IMutation {
-    createUser(data: CreateUser): User | Promise<User>;
+    login(email: string): AccessToken | Promise<AccessToken>;
+    register(data: CreateUser): User | Promise<User>;
 }
 
 export interface ISubscription {

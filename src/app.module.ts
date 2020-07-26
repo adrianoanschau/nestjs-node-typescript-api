@@ -3,10 +3,12 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { join } from "path";
 import { PrismaModule } from "./prisma/prisma.module";
 import { UsersModule } from "./users/users.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
+      context: ({ req }) => ({ req }),
       definitions: {
         path: join(process.cwd(), '/src/graphql.schema.d.ts'),
       },
@@ -20,10 +22,11 @@ import { UsersModule } from "./users/users.module";
       },
       buildSchemaOptions: {
         dateScalarMode: 'isoDate',
-      }
+      },
     }),
     PrismaModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
