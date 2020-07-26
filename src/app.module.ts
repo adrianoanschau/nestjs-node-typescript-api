@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Module } from "@nestjs/common";
 import { GraphQLModule } from "@nestjs/graphql";
-import { join } from 'path';
-import { MessagesModule } from './messages/messages.module';
+import { join } from "path";
+import { PrismaModule } from "./prisma/prisma.module";
+import { UsersModule } from "./users/users.module";
 
 @Module({
   imports: [
@@ -13,8 +14,16 @@ import { MessagesModule } from './messages/messages.module';
       resolverValidationOptions: {
         requireResolversForResolveType: false,
       },
+      installSubscriptionHandlers: true,
+      subscriptions: {
+        keepAlive: 5000,
+      },
+      buildSchemaOptions: {
+        dateScalarMode: 'isoDate',
+      }
     }),
-    MessagesModule,
+    PrismaModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],

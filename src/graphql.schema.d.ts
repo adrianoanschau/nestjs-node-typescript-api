@@ -6,15 +6,29 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export interface Message {
-    id: number;
-    description: string;
+export interface CreateUser {
+    name: string;
+    email: string;
+    password?: string;
 }
 
 export interface IQuery {
-    messages(): Message[] | Promise<Message[]>;
+    users(): User[] | Promise<User[]>;
 }
 
 export interface IMutation {
-    createMessage(description: string): Message | Promise<Message>;
+    createUser(data: CreateUser): User | Promise<User>;
+}
+
+export interface ISubscription {
+    userAdded(): User | Promise<User>;
+}
+
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+    password?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

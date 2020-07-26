@@ -6,7 +6,7 @@ You can check out the [state of the schema](./schema.prisma) after the migration
 ## Database Steps
 
 ```sql
-CREATE TABLE "public"."User" (
+CREATE TABLE "public"."UserModel" (
 "id" text  NOT NULL ,
 "name" text  NOT NULL ,
 "email" text  NOT NULL ,
@@ -15,7 +15,7 @@ CREATE TABLE "public"."User" (
 "updatedAt" timestamp(3)  NOT NULL ,
 PRIMARY KEY ("id"))
 
-CREATE UNIQUE INDEX "User.email" ON "public"."User"("email")
+CREATE UNIQUE INDEX "UserModel.email" ON "public"."UserModel"("email")
 ```
 
 ## Changes
@@ -36,7 +36,7 @@ migration 20200725164844-start..20200725165216-create-user
      provider = "prisma-client-js"
 +}
 +
-+model User {
++model UserModel {
 +    id          String      @id @default(uuid())
 +    name        String
 +    email       String      @unique
